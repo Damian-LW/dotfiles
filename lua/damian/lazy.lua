@@ -12,9 +12,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ { import = "damian.plugins" }, { import = "damian.plugins.lsp" } }, {
-  install = {
-    colorscheme = { "nightfly" },
-  },
+  -- require("lazy").setup({ { import = "damian.plugins" } }, {
+  -- install = {
+  --   colorscheme = { "nightfly" },
+  -- },
   checker = {
     enabled = true,
     notify = false,
