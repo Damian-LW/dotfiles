@@ -12,6 +12,9 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("v", "<leader>sy", [["*y]])
+vim.keymap.set("n", "<leader>sp", [["*p]])
+vim.keymap.set("v", "<leader>sp", [["*p]])
 
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
@@ -36,10 +39,10 @@ vim.keymap.set("n", "<leader>f", function()
   vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
 end)
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>n", [[/<C-r><C-w><CR>]])
 
@@ -48,6 +51,8 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>")
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
+
+vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 
 -- theme in styled components
 
@@ -71,3 +76,16 @@ vim.keymap.set("n", "<leader>dxc", function()
   -- vim.cmd('startinsert!')
   --  vim.fn.cursor(vim.fn.line('.'), vim.fn.col('.') - 1)
 end, { silent = true }, { noremap = true })
+
+local function toggle_quickfix()
+  local windows = vim.fn.getwininfo()
+  for _, win in pairs(windows) do
+    if win["quickfix"] == 1 then
+      vim.cmd.cclose()
+      return
+    end
+  end
+  vim.cmd.copen()
+end
+
+vim.keymap.set("n", "<Leader>qt", toggle_quickfix, { desc = "Toggle Quickfix Window" })

@@ -3,6 +3,7 @@ return {
   event = { "BufReadPost", "BufNewFile" },
   opts = {
     delay = 200,
+
     filetypes_denylist = {
       "mason",
       "harpoon",
@@ -27,9 +28,13 @@ return {
       "TelescopePrompt",
     },
   },
+
   lazy = false,
   config = function(_, opts)
+    require("illuminate").pause()
     require("illuminate").configure(opts)
+
+    vim.keymap.set("n", "<leader>pl", "<cmd>IlluminateToggle<CR>")
 
     local function map(key, dir, buffer)
       vim.keymap.set("n", key, function()
