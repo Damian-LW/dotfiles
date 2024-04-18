@@ -63,6 +63,8 @@ vim.keymap.set("n", "<leader>th", function()
   --  vim.fn.cursor(vim.fn.line('.'), vim.fn.col('.') - 1)
 end, { silent = true }, { noremap = true })
 
+vim.keymap.set("n", "<leader>th", "i${({theme})=>theme.}<Esc>")
+
 vim.keymap.set("n", "<leader>dxx", function()
   local display_flex = "display:flex; align-items:center; justify-content:center;"
   vim.api.nvim_put({ display_flex }, "", true, true)
