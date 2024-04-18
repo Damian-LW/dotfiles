@@ -52,32 +52,16 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>")
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
 
-vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
-
 -- theme in styled components
+vim.keymap.set("n", "<leader>th", "i${({theme})=>theme.}<Esc>i")
 
-vim.keymap.set("n", "<leader>th", function()
-  local theme_text = "${({theme})=>theme.}"
-  vim.api.nvim_put({ theme_text }, "", true, true)
-  -- vim.cmd('startinsert!')
-  --  vim.fn.cursor(vim.fn.line('.'), vim.fn.col('.') - 1)
-end, { silent = true }, { noremap = true })
+vim.keymap.set("n", "<leader>dxx", "odisplay:flex;<CR>align-items:center;<CR>justify-content:center;<CR><Esc>")
 
-vim.keymap.set("n", "<leader>th", "i${({theme})=>theme.}<Esc>")
-
-vim.keymap.set("n", "<leader>dxx", function()
-  local display_flex = "display:flex; align-items:center; justify-content:center;"
-  vim.api.nvim_put({ display_flex }, "", true, true)
-  -- vim.cmd('startinsert!')
-  --  vim.fn.cursor(vim.fn.line('.'), vim.fn.col('.') - 1)
-end, { silent = true }, { noremap = true })
-
-vim.keymap.set("n", "<leader>dxc", function()
-  local display_flex = "display:flex; flex-direction:column; align-items:center; justify-content:center;"
-  vim.api.nvim_put({ display_flex }, "", true, true)
-  -- vim.cmd('startinsert!')
-  --  vim.fn.cursor(vim.fn.line('.'), vim.fn.col('.') - 1)
-end, { silent = true }, { noremap = true })
+vim.keymap.set(
+  "n",
+  "<leader>dxc",
+  "odisplay:flex;<CR>flex-direction:column;<CR>align-items:center;<CR>justify-content:center;<CR><Esc>"
+)
 
 local function toggle_quickfix()
   local windows = vim.fn.getwininfo()
