@@ -28,7 +28,8 @@ return {
       ensure_installed = {
         "lua_ls",
         "rust_analyzer",
-        "tsserver"
+        "tsserver",
+        "eslint"
       },
       handlers = {
         function(server_name) -- default handler (optional)
@@ -51,6 +52,23 @@ return {
             }
           }
         end,
+
+        ["rust_analyzer"] = function()
+          local lspconfig = require("lspconfig")
+          lspconfig.rust_analyzer.setup {
+            capabilities = capabilities,
+            cmd = {
+              'rustup', 'run', 'stable', 'rust-analyzer'
+            },
+            settings = {
+              ["rust-analyzer"] = {
+                checkOnSave = {
+                  command = "clippy"
+                }
+              }
+            }
+          }
+        end
       }
     })
 
@@ -58,6 +76,34 @@ return {
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
+    local kind_icons = {
+      Text = "",
+      Method = "󰆧",
+      Function = "󰊕",
+      Constructor = "",
+      Field = "󰇽",
+      Variable = "󰂡",
+      Class = "󰠱",
+      Interface = "",
+      Module = "",
+      Property = "󰜢",
+      Unit = "",
+      Value = "󰎠",
+      Enum = "",
+      Keyword = "󰌋",
+      Snippet = "",
+      Color = "󰏘",
+      File = "󰈙",
+      Reference = "",
+      Folder = "󰉋",
+      EnumMember = "",
+      Constant = "󰏿",
+      Struct = "",
+      Event = "",
+      Operator = "󰆕",
+      TypeParameter = "󰅲",
+    }
 
 
     cmp.setup({
@@ -72,12 +118,42 @@ return {
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         ["<C-Space>"] = cmp.mapping.complete(),
       }),
+      --new
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      },
+      --new end
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' }, -- For luasnip users.
       }, {
         { name = 'buffer' },
-      })
+      }),
+      formatting = {
+        format = function(entry, vim_item)
+          local lspkind_ok, lspkind = pcall(require, "lspkind")
+          if not lspkind_ok then
+            -- From kind_icons array
+            vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+            -- Source
+            vim_item.menu = ({
+              -- copilot = "[Copilot]",
+              nvim_lsp = "[LSP]",
+              nvim_lua = "[Lua]",
+              luasnip = "[LuaSnip]",
+              buffer = "[Buffer]",
+              latex_symbols = "[LaTeX]",
+            })[entry.source.name]
+            return vim_item
+          else
+            -- From lspkind
+            return lspkind.cmp_format()(entry, vim_item)
+          end
+        end,
+      },
+
+
     })
 
 

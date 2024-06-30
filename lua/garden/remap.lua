@@ -27,14 +27,38 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 -- vim.keymap.set("n", "<leader><leader>", "<cmd>Prettier<CR>")
-
 -- vim.keymap.set("n", "<C-a>", "gg<s-v>G")
-
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-z>", "<nop>")
--- vim.keymap.set("n", "ZZ", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
+
+
+--enter relief
+vim.keymap.set("i", "<C-g>", "<CR>")
+vim.keymap.set("n", "<C-g>", "<CR>")
+
+--arrows go away
+vim.keymap.set("n", "<Up>", "<nop>")
+vim.keymap.set("n", "<Down>", "<nop>")
+vim.keymap.set("n", "<Left>", "<nop>")
+vim.keymap.set("n", "<Right>", "<nop>")
+
+vim.keymap.set("i", "<Up>", "<nop>")
+vim.keymap.set("i", "<Down>", "<nop>")
+vim.keymap.set("i", "<Left>", "<nop>")
+vim.keymap.set("i", "<Right>", "<nop>")
+
+vim.keymap.set("v", "<Up>", "<nop>")
+vim.keymap.set("v", "<Down>", "<nop>")
+vim.keymap.set("v", "<Left>", "<nop>")
+vim.keymap.set("v", "<Right>", "<nop>")
+
+-- vim.keymap.set("n", "<Backspace>", "<C-h>")
+
+
+
+--
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 --vim.keymap.set("n", "<leader>f", "<cmd>Prettier<CR>")
 vim.keymap.set("n", "<leader>f", function()
   vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
@@ -75,3 +99,13 @@ local function toggle_quickfix()
 end
 
 vim.keymap.set("n", "<Leader>qt", toggle_quickfix, { desc = "Toggle Quickfix Window" })
+
+--terminal
+
+vim.keymap.set("n", "<leader>ett", "<C-w><C-v><C-w><C-l>:term<CR>a")
+
+--Escaping terminal mode
+vim.keymap.set('t', '<C-t>', '<C-\\><C-n><C-w><C-h>', { noremap = true, silent = true })
+
+
+vim.keymap.set("n", "<leader>pcc", ":cdo s/console.log(.*)//gc<CR>")

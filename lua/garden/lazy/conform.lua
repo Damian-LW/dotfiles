@@ -24,10 +24,10 @@ return { -- Autoformat
       }
     end,
     formatters_by_ft = {
-      javascript = { "prettier" },
-      typescript = { "prettier" },
-      javascriptreact = { "prettier" },
-      typescriptreact = { "prettier" },
+      javascript = { "prettierd", "prettier" },
+      typescript = { "prettierd", "prettier" },
+      javascriptreact = { "prettierd", "prettier" },
+      typescriptreact = { "prettierd", "prettier" },
       svelte = { "prettier" },
       css = { "prettier" },
       html = { "prettier" },
@@ -44,5 +44,7 @@ return { -- Autoformat
       -- is found.
       -- javascript = { { "prettierd", "prettier" } },
     },
+
   },
 }
+
