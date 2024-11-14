@@ -109,3 +109,5 @@ vim.keymap.set('t', '<C-t>', '<C-\\><C-n><C-w><C-h>', { noremap = true, silent =
 
 
 vim.keymap.set("n", "<leader>pcc", ":cdo s/console.log(.*)//gc<CR>")
+
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { noremap = true, silent = true })

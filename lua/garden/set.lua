@@ -33,3 +33,10 @@ vim.o.smartcase = true
 
 vim.o.completeopt = "menuone,noselect"
 vim.o.termguicolors = true
+
+vim.diagnostic.config({
+  float = {
+    source = 'always',
+    border = 'rounded',
+  },
+})
