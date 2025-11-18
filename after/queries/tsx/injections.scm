@@ -127,6 +127,8 @@
                    (#set! injection.language "python"))
 
 
+; query
+;; string sql injection
 (await_expression
   (call_expression
     function: (member_expression
@@ -135,8 +137,58 @@
                 )
     arguments: (arguments
                  (template_string
-                   (string_fragment) @sql_string
+                   (string_fragment) @injection.content
+                   (#set! injection.language "sql")
                    )
                  )
     )
   )
+
+
+; query
+;; string sql injection
+(pair
+  key: (property_identifier) @key (#eq? @key "createQuery")
+  value: (template_string
+    (string_fragment) @injection.content
+                    (#set! injection.language "sql")
+
+  )
+)
+
+; query
+;; string sql injection
+(lexical_declaration
+  (variable_declarator
+    name: (identifier)
+    value: (call_expression
+             function: (await_expression
+                         (member_expression
+                           object: (identifier) @object (#eq? @object "db")
+                           property: (property_identifier) @property (#match? @property "sync")
+                           ))
+             type_arguments: (type_arguments
+                               (type_identifier))
+             arguments: (arguments
+                          (string
+                            (string_fragment) @injection.content
+                            (#set! injection.language "sql")
+                            )))))
+
+
+; query
+;; string sql injection
+(call_expression
+  function: (await_expression
+              (member_expression
+                object: (identifier) @object (#eq? @object "db")
+                property: (property_identifier)@property (#match? @property "sync")
+))
+  type_arguments: (type_arguments
+                    (type_identifier))
+  arguments: (arguments
+               (template_string
+                 (string_fragment) @injection.content
+                            (#set! injection.language "sql")
+                 )))
+

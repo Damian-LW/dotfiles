@@ -1,6 +1,10 @@
 return {
-  "dmmulroy/tsc.nvim",
-  config = function()
-    require("tsc").setup()
-  end,
+	"dmmulroy/tsc.nvim",
+	config = function()
+		require("tsc").setup({
+			auto_open_qflist = true,
+			use_trouble_qflist = false,
+			run_as_monorepo = true,
+		})
+	end,
 }
