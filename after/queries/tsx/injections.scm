@@ -192,3 +192,32 @@
                             (#set! injection.language "sql")
                  )))
 
+; query
+;; template string html injection based on variable name
+((variable_declarator
+  name: (identifier) @_name
+  value: (template_string
+    (string_fragment) @injection.content))
+ (#match? @_name "[hH][tT][mM][lL]")
+ (#set! injection.language "html"))
+
+; query
+;; template string css injection based on variable name
+((variable_declarator
+  name: (identifier) @_name
+  value: (template_string
+    (string_fragment) @injection.content))
+ (#match? @_name "[cC][sS][sS]")
+ (#set! injection.language "css"))
+
+; query
+;; template string svg injection based on variable name
+((variable_declarator
+  name: (identifier) @_name
+  value: (template_string
+    (string_fragment) @injection.content))
+ (#match? @_name "[sS][vV][gG]")
+ (#set! injection.language "html"))
+
+
+

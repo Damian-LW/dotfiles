@@ -31,8 +31,6 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-z>", "<nop>")
 
-
-
 --enter relief
 vim.keymap.set("i", "<C-g>", "<CR>")
 vim.keymap.set("n", "<C-g>", "<CR>")
@@ -55,13 +53,11 @@ vim.keymap.set("v", "<Right>", "<nop>")
 
 -- vim.keymap.set("n", "<Backspace>", "<C-h>")
 
-
-
 --
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 --vim.keymap.set("n", "<leader>f", "<cmd>Prettier<CR>")
 vim.keymap.set("n", "<leader>f", function()
-  vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+	vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
 end)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
@@ -82,20 +78,20 @@ vim.keymap.set("n", "<leader>th", "i${({theme})=>theme.}<Esc>i")
 vim.keymap.set("n", "<leader>dxx", "odisplay:flex;<CR>align-items:center;<CR>justify-content:center;<CR><Esc>")
 
 vim.keymap.set(
-  "n",
-  "<leader>dxc",
-  "odisplay:flex;<CR>flex-direction:column;<CR>align-items:center;<CR>justify-content:center;<CR><Esc>"
+	"n",
+	"<leader>dxc",
+	"odisplay:flex;<CR>flex-direction:column;<CR>align-items:center;<CR>justify-content:center;<CR><Esc>"
 )
 
 local function toggle_quickfix()
-  local windows = vim.fn.getwininfo()
-  for _, win in pairs(windows) do
-    if win["quickfix"] == 1 then
-      vim.cmd.cclose()
-      return
-    end
-  end
-  vim.cmd.copen()
+	local windows = vim.fn.getwininfo()
+	for _, win in pairs(windows) do
+		if win["quickfix"] == 1 then
+			vim.cmd.cclose()
+			return
+		end
+	end
+	vim.cmd.copen()
 end
 
 vim.keymap.set("n", "<Leader>qt", toggle_quickfix, { desc = "Toggle Quickfix Window" })
@@ -103,11 +99,23 @@ vim.keymap.set("n", "<Leader>qt", toggle_quickfix, { desc = "Toggle Quickfix Win
 --terminal
 
 vim.keymap.set("n", "<leader>ett", "<C-w><C-v><C-w><C-l>:term<CR>a")
-
+--change type
+vim.keymap.set(
+	"n",
+	"<leader>cit",
+	"vi{:s/'\\(.*\\)'/string \\/\\/'\\1'/g<CR>gv:s/:\\s*\\zs\\d\\+\\ze\\s*$/number \\/\\/\\0/g<CR>gv:s/:\\s*\\zs\\(true\\|false\\)\\ze\\s*$/boolean \\/\\/\\0/g<CR>"
+)
 --Escaping terminal mode
-vim.keymap.set('t', '<C-t>', '<C-\\><C-n><C-w><C-h>', { noremap = true, silent = true })
-
+vim.keymap.set("t", "<C-t>", "<C-\\><C-n><C-w><C-h>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>pcc", ":cdo s/console.log(.*)//gc<CR>")
 
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { noremap = true, silent = true })
+
+-- cladue
+--
+vim.keymap.set("n", "<leader>cr", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
+
+vim.keymap.set("n", "<leader>vim", function()
+	vim.cmd("so")
+end)

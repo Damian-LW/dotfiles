@@ -25,6 +25,9 @@ return { -- Highlight, edit, and navigate code
 			additional_vim_regex_highlighting = { "ruby", "markdown" },
 		},
 		indent = { enable = true, disable = { "ruby" } },
+		injections = {
+			enable = true,
+		},
 	},
 	config = function(_, opts)
 		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
